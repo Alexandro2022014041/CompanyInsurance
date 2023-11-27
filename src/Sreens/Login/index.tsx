@@ -5,7 +5,6 @@ import { LineButton, MajorButton } from '../../Components/Buttons'
 import { ViewInputArea } from '../../Components/viewInputArea'
 import { LinearGradient } from 'expo-linear-gradient'
 import { UseUtilsContext } from '../../hooks'
-import { useNavigation } from "@react-navigation/native"
 
 export const Login = ({navigation, routes}: any) =>{
 

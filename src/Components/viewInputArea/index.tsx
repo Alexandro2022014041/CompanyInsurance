@@ -7,7 +7,7 @@ import { Styles } from "./styles"
 type Props = {
     SecureText: boolean
     TextPlaceHolder: string
-    Value: string
+    Value: any
     onChange: (value: any) => void
 }
 
@@ -16,5 +16,5 @@ export const ViewInputArea = (props: Props) =>{
                       value={props.Value}  
                       secureTextEntry={props.SecureText}
                       placeholder={props.TextPlaceHolder}
-                      onChange={props.onChange}/>
+                      onChangeText={props.onChange}/>
 }

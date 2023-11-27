@@ -9,8 +9,9 @@ export const UtilsProvider = ({children}: any) =>{
     const navitation = useNavigation<StackTypes>()
     const [user, setUser] = useState<string>('')
     const [passwd, setPasswd] = useState<string>('')
+    const [age, setAge] = useState<number>(0)
 
-    const signIn = (user: string, passwd: string) =>{
+    function signIn (user: string, passwd: string){
         if(user !== '' && passwd !== ''){
             setUser(user)
             setPasswd(passwd)
@@ -18,11 +19,32 @@ export const UtilsProvider = ({children}: any) =>{
         }
     } 
 
-    const forgotPasswd = () => navitation.navigate('ForgotPasswd')
+    function toPageCarData (age: number){
+        if(age !== 0){
+            setAge(age)
+            navitation.navigate('CarData')
+        }
+    } 
 
-    return <UtilsContext.Provider value={({user, 
+    function toPageFinalInsurance(){
+        navitation.navigate('FinalInsurance')
+    }
+
+    function toLogin (){
+        navitation.navigate('Login')
+    }
+
+    function forgotPasswd () {
+        navitation.navigate('ForgotPasswd')
+    }
+
+    return <UtilsContext.Provider value={({user,
+                                           age,  
                                            signIn, 
-                                           forgotPasswd})}>
+                                           forgotPasswd,
+                                           toPageCarData,
+                                           toLogin,
+                                           toPageFinalInsurance})}>
                 {children}
            </UtilsContext.Provider>
 }
