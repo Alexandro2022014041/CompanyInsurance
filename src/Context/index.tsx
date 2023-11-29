@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native"
-import { useState, createContext } from "react"
+import { useState, createContext, useEffect } from "react"
 import { StackTypes } from "../Routes/Routes"
 import { Float } from "react-native/Libraries/Types/CodegenTypes"
 
@@ -7,7 +7,6 @@ export const UtilsContext = createContext({})
 
 export const UtilsProvider = ({children}: any) =>{
 
-    const dollar                              = 5
     const navigation                          = useNavigation<StackTypes>()
     const [user, setUser]                     = useState<string>('')
     const [passwd, setPasswd]                 = useState<string>('')
@@ -21,6 +20,7 @@ export const UtilsProvider = ({children}: any) =>{
     const [carBase, setCarBase]               = useState<Float>(0)
     const [carValue, setCarValue]             = useState<Float>(0)
     const [cpf, setCpf]                       = useState<number>(0.00)
+    const [dollar, setDollar]                 = useState<number>(0)
 
     function signIn (user: string, passwd: string){
         if(user !== '' && passwd !== ''){
@@ -71,7 +71,7 @@ export const UtilsProvider = ({children}: any) =>{
             calc = (carBase * 15) / 100
         }
 
-        if(isDollar){
+        if(isDollar == true){
             calc = calc / dollar
             Math.round(calc)
             console.log('base idade motorista:' + baseUserAge)            
@@ -93,7 +93,7 @@ export const UtilsProvider = ({children}: any) =>{
             calc = 1000
         }
 
-        if(isDollar){
+        if(isDollar == true){
             calc = calc / dollar
             Math.round(calc)
             console.log('base idade carro:' + baseCarAge)
@@ -119,7 +119,7 @@ export const UtilsProvider = ({children}: any) =>{
             setIsDiscount(true)
         }
 
-        if(isDollar){
+        if(isDollar == true){
             calc = calc / dollar
             Math.round(calc)
             console.log(calc)
@@ -139,6 +139,18 @@ export const UtilsProvider = ({children}: any) =>{
                           ageCalcInsurance + 
                           carCalcInsurance)
     }
+
+    useEffect(() => {
+        fetch("https://economia.awesomeapi.com.br/last/USD-BRL")
+          .then(response => response.json())
+          .then(data => {
+            console.log("Taxa de câmbio obtida com sucesso:", data?.USDBRL?.bid);
+            setDollar(data?.USDBRL?.bid);
+          })
+          .catch(error => {
+            console.error("Erro ao obter a taxa de câmbio:", error);
+          });
+      });
 
     return <UtilsContext.Provider value={({user,
                                            age,

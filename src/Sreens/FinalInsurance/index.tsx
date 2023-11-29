@@ -53,12 +53,12 @@ export const FinalInsurance = () =>{
             </View>
             <View style={Styles.BoxMainResults}>
                 <View style={Styles.BoxViewResult}>
-                    <ViewInformationArea Text="Base" CoinSymbol={coinSymbol} Value={carBase}/>
-                    <ViewInformationArea Text="Por Idade" CoinSymbol={coinSymbol} Value={baseUserAge}/>
-                    <ViewInformationArea Text="Por ano" CoinSymbol={coinSymbol} Value={discount + baseCarAge}/>
+                    <ViewInformationArea Text="Base" CoinSymbol={coinSymbol} Value={carBase.toFixed(2)}/>
+                    <ViewInformationArea Text="Por Idade" CoinSymbol={coinSymbol} Value={baseUserAge.toFixed(2)}/>
+                    <ViewInformationArea Text="Por ano" CoinSymbol={coinSymbol} Value={discount + baseCarAge.toFixed(2)}/>
                 </View>                 
                 <View>
-                    <ViewInformationArea Text="Total" CoinSymbol={coinSymbol} Value={totalInsurance}/>
+                    <ViewInformationArea Text="Total" CoinSymbol={coinSymbol} Value={totalInsurance.toFixed(2)}/>
                 </View>
             </View>
             <View style={Styles.checkBox}>
