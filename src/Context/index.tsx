@@ -140,6 +140,22 @@ export const UtilsProvider = ({children}: any) =>{
                           carCalcInsurance)
     }
 
+    const clearConstants = () =>{
+        setUser('')         
+        setPasswd('')       
+        setAge(0)           
+        setCar('')          
+        setCarAge(0)        
+        setBaseUserAge(0)   
+        setBaseCarAge(0)    
+        setTotalInsurance(0)
+        setIsDiscount(false)
+        setCarBase(0)       
+        setCarValue(0)      
+        setCpf(0)           
+        setDollar(0)        
+    }
+
     useEffect(() => {
         fetch("https://economia.awesomeapi.com.br/last/USD-BRL")
           .then(response => response.json())
@@ -167,7 +183,8 @@ export const UtilsProvider = ({children}: any) =>{
                                            toLogin,
                                            toPageFinalInsurance,
                                            toPersonalData,
-                                           TotalInsurance})}>
+                                           TotalInsurance,
+                                           clearConstants})}>
                 {children}
            </UtilsContext.Provider>
 }

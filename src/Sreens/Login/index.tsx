@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Text, View } from "react-native"
 import { Styles } from "./styles"
 import { LineButton, MajorButton } from '../../Components/Buttons'
@@ -6,10 +6,11 @@ import { ViewInputArea } from '../../Components/viewInputArea'
 import { LinearGradient } from 'expo-linear-gradient'
 import { UseUtilsContext } from '../../hooks'
 
-export const Login = ({navigation, routes}: any) =>{
+export const Login = () =>{
 
     const {signIn,
-           forgotPasswd}: any = UseUtilsContext() 
+           forgotPasswd,
+           clearConstants}: any = UseUtilsContext() 
 
     const [user, setUser] = useState<string>('')
     const [passwd, setPasswd] = useState<string>('')
@@ -19,6 +20,10 @@ export const Login = ({navigation, routes}: any) =>{
 
     const handleLogin = () => signIn(user, passwd)
     const handleForgotPasswd = () => forgotPasswd()
+
+    useEffect(() => {
+        clearConstants()
+    }, [])
 
     return(
         <LinearGradient style={Styles.container} colors={['#5374B6', '#B6535300']}> 
