@@ -1,19 +1,24 @@
 import React from 'react';
-import { TextInput } from 'react-native';
+import { Text, View } from 'react-native';
 import { Styles } from './styles';
 
 type Props = {
-    Inform: string
-    SecureText: boolean
-    setInform: any
+    Text: string
+    Value: any
+    CoinSymbol: string
 }
 
 export const ViewInformationArea = (props: Props) => {
-    return <TextInput 
-                style={Styles.container} 
-                placeholder={props.Inform}
-                secureTextEntry={props.SecureText}
-                onChange={props.setInform}>
-           </TextInput>
+    return(
+        <View style={Styles.container}>
+            <Text style={Styles.text}>{props.Text}</Text>
+            <View style={Styles.symbolCoin}>
+                <Text style={Styles.text}>{props.CoinSymbol}</Text>
+                <View style={Styles.numberCoin}>
+                    <Text style={Styles.text}>{props.Value}</Text>  
+                </View>
+            </View>
+        </View>
+    )
 
 };

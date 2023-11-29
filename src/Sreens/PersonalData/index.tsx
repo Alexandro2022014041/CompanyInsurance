@@ -1,24 +1,22 @@
-import { useNavigation } from '@react-navigation/native'
 import { Text, TouchableOpacity, View } from "react-native"
 import { Styles } from "./styles"
-import { StackTypes } from '../../Routes/Routes'
 import { UseUtilsContext } from '../../hooks'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useState } from 'react'
-import { ViewInputArea } from '../../Components/viewInputArea'
+import { ViewFormatInputArea, ViewInputArea } from '../../Components/viewInputArea'
 import { LineButton, MajorButton } from '../../Components/Buttons'
 
 export const PersonalData = () =>{
 
-    
-    const navitation = useNavigation<StackTypes>()
     const {user, toPageCarData, toLogin}: any = UseUtilsContext()
-    const [age, setAge] = useState<number>(0)
+    const [age, setAge] = useState<string>('')
+    const [cpf, setCpf] = useState<string>('')
 
-    const SetAge = (value: number) => setAge(value)
+    const SetAge = (value: string) => setAge(value)
+    const SetCpf = (value: string) => setCpf(value)
 
-    const handleCarData = () => toPageCarData(age)
-    const handleLogin = () => toLogin
+    const handleCarData = () => toPageCarData(age, cpf)
+    const handleLogin = () => toLogin()
 
     return(
         <LinearGradient style={Styles.container} colors={['#5374B6', '#B6535300']}> 
@@ -31,19 +29,23 @@ export const PersonalData = () =>{
             <View>
                 <View style={Styles.boxInputs}>
                     <View>
-                        <Text style={Styles.textAge}>Qual Sua Idade?</Text>
+                        <Text style={Styles.textAge}>Qual sua Idade?</Text>
                     </View>
                     <View>
                         <ViewInputArea TextPlaceHolder='Idade'
                                        SecureText={false}
+                                       BoardType='numeric'
                                        Value={age}
                                        onChange={(e) => SetAge(e)}/>
                     </View>
-                    <View>     
-                        {/* <ViewInputArea SecureText={true} 
-                                    TextPlaceHolder='Senha'
-                                    Value={passwd}
-                                    onChange={}/>           */}
+                    <View>
+                        <Text style={Styles.textAge}>Qual o seu CPF?</Text>
+                    </View>
+                    <View>
+                        <ViewFormatInputArea TextPlaceHolder='CPF'
+                                             MaskTypeInput='cpf'                                
+                                             Value={cpf}
+                                             onChange={(e) => SetCpf(e)}/>
                     </View>
                 </View>
             </View>

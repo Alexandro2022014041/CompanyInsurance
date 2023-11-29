@@ -1,22 +1,28 @@
 import { useNavigation } from '@react-navigation/native'
-import { Text, TouchableOpacity, View } from "react-native"
+import { Text, View } from "react-native"
 import { Styles } from "./styles"
 import { StackTypes } from '../../Routes/Routes'
 import { LinearGradient } from 'expo-linear-gradient'
-import { ViewInputArea } from '../../Components/viewInputArea'
+import { ViewInputArea, ViewFormatInputArea } from '../../Components/viewInputArea'
 import { LineButton, MajorButton } from '../../Components/Buttons'
 import { useState } from 'react'
 import { UseUtilsContext } from '../../hooks'
 
 export const CarData = () =>{
-    const navitation = useNavigation<StackTypes>()
-    const {user, toPageCarData, toLogin}: any = UseUtilsContext()
-    const [age, setAge] = useState<string>('')
+    const {user, toPageFinalInsurance, toPersonalData}: any = UseUtilsContext()
 
-    const SetAge = (value: string) => setAge(value)
+    const [car, setCar]                         = useState<string>('')
+    const [carYear, setCarYear]                 = useState<string>('')
+    const [carValue, setCarValue]               = useState<string>('')
+    const [carLicensePlate, setCarLicensePlate] = useState<string>('') 
 
-    const handleCarData = () => toPageCarData(age)
-    const handleLogin = () => toLogin
+    const SetCar             = (value: string) => setCar(value)  
+    const SetCarYear         = (value: string) => setCarYear(value)
+    const SetCarValue        = (value: string) => setCarValue(value)
+    const SetCarLicensePlate = (value: string) => setCarLicensePlate(value)
+
+    const handleFinalInsurance = () => toPageFinalInsurance(car, carYear, carValue)
+    const handlePersonalData   = () => toPersonalData()
 
     return(
         <LinearGradient style={Styles.container} colors={['#5374B6', '#B6535300']}> 
@@ -29,19 +35,54 @@ export const CarData = () =>{
             <View>
                 <View style={Styles.boxInputs}>
                     <View>
-                        <Text style={Styles.textAge}>Qual Sua Idade?</Text>
+                        <Text style={Styles.textAge}>Qual é o seu carro?</Text>
+                    </View>                    
+                    <View>
+                        <ViewInputArea TextPlaceHolder='Carro'
+                                       SecureText={false}
+                                       Value={car}
+                                       onChange={(e) => SetCar(e)}/>
                     </View>
                     <View>
-                        <ViewInputArea TextPlaceHolder='Idade'
-                                       SecureText={false}
-                                       Value={age}
-                                       onChange={(e) => SetAge(e)}/>
+                        <Text style={Styles.textAge}>Qual O ano do seu carro?</Text>
                     </View>
                     <View>     
-                        {/* <ViewInputArea SecureText={true} 
-                                    TextPlaceHolder='Senha'
-                                    Value={passwd}
-                                    onChange={}/>           */}
+                        <ViewInputArea TextPlaceHolder='Ano'
+                                       SecureText={false} 
+                                       BoardType='numeric'
+                                       Value={carYear}
+                                       onChange={(e) => SetCarYear(e)}/>          
+                    </View>
+                    <View>
+                        <Text style={Styles.textAge}>Qual O valor do seu carro?</Text>
+                    </View>
+                    <View>     
+                        <ViewFormatInputArea 
+                            MaskTypeInput='money'
+                            MaskOptionsInput={{
+                                mask: '0.00'
+                            }}
+                            TextPlaceHolder='R$ '
+                            Value={carValue}
+                            onChange={(e) => SetCarValue(e)}
+                        />
+                    </View>
+                    <View>
+                        <Text style={Styles.textAge}>Qual a placa do seu carro?</Text>
+                    </View>
+                    <View>     
+                        <ViewFormatInputArea 
+                            MaskTypeInput='custom'
+                            MaskOptionsInput={{
+                                mask: 'AAA-9999',
+                                translation:{
+                                    A: val => val.toUpperCase()
+                                }
+                            }}
+                            TextPlaceHolder='Placa'
+                            Value={carLicensePlate}
+                            onChange={(e) => SetCarLicensePlate(e)}
+                        />
                     </View>
                 </View>
             </View>
@@ -49,7 +90,7 @@ export const CarData = () =>{
                 <View style={Styles.boxButtonLogin}>
                     <MajorButton 
                         TextButton='Próximo' 
-                        onEvent={handleCarData}
+                        onEvent={handleFinalInsurance}
                     />                     
                 </View>
             </View>
@@ -57,7 +98,7 @@ export const CarData = () =>{
                 <View style={Styles.boxButtonFogotPasswd}>
                     <LineButton
                         TextButton='Voltar' 
-                        onEvent={handleLogin}
+                        onEvent={handlePersonalData}
                     /> 
                 </View>
             </View>

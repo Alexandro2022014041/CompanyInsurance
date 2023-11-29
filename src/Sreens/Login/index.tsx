@@ -18,7 +18,7 @@ export const Login = ({navigation, routes}: any) =>{
     const SetPasswd = (value: string) => setPasswd(value)
 
     const handleLogin = () => signIn(user, passwd)
-    const handleForgotPasswd = () => forgotPasswd
+    const handleForgotPasswd = () => forgotPasswd()
 
     return(
         <LinearGradient style={Styles.container} colors={['#5374B6', '#B6535300']}> 

@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 export const Styles = StyleSheet.create({
     container:{
         flex: 1,
-        marginTop: 60,
         alignContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
@@ -31,7 +30,7 @@ export const Styles = StyleSheet.create({
         fontSize: 18
     },
     boxInputs:{
-        marginTop: 50,
+        marginTop: 70,
         height: 130,
         width: 353,
         justifyContent: "center"
@@ -46,15 +45,14 @@ export const Styles = StyleSheet.create({
         borderRadius: 5
     },
     boxButtonLogin:{
-        marginTop: 50,
+        marginTop: 100,
         gap: 10,
         width: 340,
         height: 50
     },
     boxButtonFogotPasswd:{
-        marginTop: 100,
+        marginTop: 110,
         gap: 10,
-
         width: 340,
         height: 28
     }
