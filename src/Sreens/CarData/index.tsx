@@ -76,7 +76,7 @@ export const CarData = () =>{
                             MaskOptionsInput={{
                                 mask: 'AAA-9999',
                                 translation:{
-                                    A: val => val.toUpperCase()
+                                    A: value => value.toUpperCase()
                                 }
                             }}
                             TextPlaceHolder='Placa'

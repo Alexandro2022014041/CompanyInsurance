@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native"
+import { Text, View } from "react-native"
 import { Styles } from "./styles"
 import { UseUtilsContext } from '../../hooks'
 import { LinearGradient } from 'expo-linear-gradient'
