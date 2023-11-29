@@ -73,7 +73,6 @@ export const UtilsProvider = ({children}: any) =>{
 
         if(isDollar == true){
             calc = calc / dollar
-            Math.round(calc)
             console.log('base idade motorista:' + baseUserAge)            
             console.log(calc)
         }
@@ -95,7 +94,6 @@ export const UtilsProvider = ({children}: any) =>{
 
         if(isDollar == true){
             calc = calc / dollar
-            Math.round(calc)
             console.log('base idade carro:' + baseCarAge)
             console.log(calc)
         }
@@ -121,7 +119,6 @@ export const UtilsProvider = ({children}: any) =>{
 
         if(isDollar == true){
             calc = calc / dollar
-            Math.round(calc)
             console.log(calc)
         }
 
