@@ -38,8 +38,8 @@ export const UtilsProvider = ({children}: any) =>{
         }
     } 
 
-    function toPageFinalInsurance(car: string, carAge: string, carValue: string){
-        if(car !== '' && carAge !== ''){
+    function toPageFinalInsurance(car: string, carAge: string, carValue: string, carLicensePlate: string){
+        if(car !== '' && carAge !== '' && carValue !== '' && carLicensePlate !== ''){
             setCar(car)
             setCarAge(parseInt(carAge))
             setCarValue(parseInt(carValue))

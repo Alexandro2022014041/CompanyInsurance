@@ -21,7 +21,7 @@ export const CarData = () =>{
     const SetCarValue        = (value: string) => setCarValue(value)
     const SetCarLicensePlate = (value: string) => setCarLicensePlate(value)
 
-    const handleFinalInsurance = () => toPageFinalInsurance(car, carYear, carValue)
+    const handleFinalInsurance = () => toPageFinalInsurance(car, carYear, carValue, carLicensePlate)
     const handlePersonalData   = () => toPersonalData()
 
     return(
