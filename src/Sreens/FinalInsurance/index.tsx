@@ -26,13 +26,13 @@ export const FinalInsurance = () =>{
 
     const handleLogin = () => toLogin()
     const handlePageCarData = () => toPageCarData()
+
     const handleCheckBox = (value: boolean) => {
         TotalInsurance(value)
         setCoinSymbol('R$')
         if(value){
             setCoinSymbol('$')
         }
-        console.log(value)
     }
 
     useEffect(() =>{
@@ -40,11 +40,11 @@ export const FinalInsurance = () =>{
             setDiscount('DESCONTO: ')
             setCoinSymbol('$')
         }
-    })
+    },[])
 
 
     return(
-        <LinearGradient style={Styles.container} colors={['#5374B6', '#B6535300']}>
+        <LinearGradient style={Styles.container} colors={['#5374B6', '#f4b4b4']}>
             <View style={Styles.boxMainText}>
                 <Text style={Styles.mainText}> SIMULACAR </Text>
             </View>

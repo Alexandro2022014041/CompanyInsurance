@@ -8,10 +8,10 @@ export const UtilsContext = createContext({})
 export const UtilsProvider = ({children}: any) =>{
 
     const navigation                          = useNavigation<StackTypes>()
-    const [user, setUser]                     = useState<string>('')
-    const [passwd, setPasswd]                 = useState<string>('')
+    const [user, setUser]                     = useState<string>('Alex')
+    const [passwd, setPasswd]                 = useState<string>('123456')
     const [age, setAge]                       = useState<number>(0)
-    const [car, setCar]                       = useState<string>('')
+    const [car, setCar]                       = useState<string>('323232')
     const [carAge, setCarAge]                 = useState<number>(0)
     const [baseUserAge, setBaseUserAge]       = useState<Float>(0)
     const [baseCarAge, setBaseCarAge]         = useState<Float>(0)
@@ -19,30 +19,23 @@ export const UtilsProvider = ({children}: any) =>{
     const [isDiscount, setIsDiscount]         = useState<boolean>(false)  
     const [carBase, setCarBase]               = useState<Float>(0)
     const [carValue, setCarValue]             = useState<Float>(0)
-    const [cpf, setCpf]                       = useState<number>(0.00)
+    const [cpf, setCpf]                       = useState<number>(99999999999)
     const [dollar, setDollar]                 = useState<number>(0)
 
-    function signIn (user: string, passwd: string){
+    function signIn (){
         if(user !== '' && passwd !== ''){
-            setUser(user)
-            setPasswd(passwd)
             navigation.navigate('PersonalData')
         }
     } 
 
-    function toPageCarData (age: string, cpf: string){
-        if(age !== '' && cpf !== ''){
-            setAge(parseInt(age))
-            setCpf(parseFloat(cpf))
+    function toPageCarData (){
+        if(age !== 0 && cpf !== 0){
             navigation.navigate('CarData')
         }
     } 
 
-    function toPageFinalInsurance(car: string, carAge: string, carValue: string, carLicensePlate: string){
-        if(car !== '' && carAge !== '' && carValue !== '' && carLicensePlate !== ''){
-            setCar(car)
-            setCarAge(parseInt(carAge))
-            setCarValue(parseInt(carValue))
+    function toPageFinalInsurance(){
+        if(car !== '' && carAge !== 0 && carValue !== 0){
             TotalInsurance(false)
             navigation.navigate('FinalInsurance')
         }
@@ -60,77 +53,78 @@ export const UtilsProvider = ({children}: any) =>{
         navigation.navigate('PersonalData')
     }
 
-    const AgeInsuranceCalculate = (isDollar: boolean) =>{
-        var calc: Float
-        calc = 0
+    const AgeInsuranceCalculate = (isDollar: boolean, base: number) =>{
+        let calc: Float = 0
+        let auxCalc: Float = 0
+
         if(age <= 22){
-            calc = (carBase * 20) / 100
+            calc = (base * 20) / 100
         }else if(age > 22 && age < 29){
-            calc = (carBase * 18) / 100
+            calc = (base * 18) / 100
         }else if(age >= 29){
-            calc = (carBase * 15) / 100
+            calc = (base * 15) / 100
         }
+        
+        auxCalc = calc
+        calc = 0
 
-        if(isDollar == true){
-            calc = calc / dollar
-            console.log('base idade motorista:' + baseUserAge)            
-            console.log(calc)
+        if(isDollar){
+            calc = auxCalc / dollar
         }
-
+        calc = auxCalc
         setBaseUserAge(calc)
         return calc
     }
 
     const carBaseCalculate = (isDollar: boolean) =>{
-        var calc: Float
-        calc = 0
-        if(carValue > 100000){
+        let calc: Float = 0
+        let auxCalc = parseFloat(carValue.toString().replace('R$', '').replace('.', ''))
+        if(auxCalc > 100000){
             calc = 2000
-        }else if(carValue >= 50000 && carValue < 100000){
+        }else if(auxCalc >= 50000 && auxCalc < 100000){
             calc = 1500
         }else {
             calc = 1000
         }
 
-        if(isDollar == true){
+        if(isDollar){
             calc = calc / dollar
-            console.log('base idade carro:' + baseCarAge)
-            console.log(calc)
         }
 
         setCarBase(calc)
         return calc
     }
 
-    const carInsuranceCalculate = (isDollar: boolean) =>{
-        var calc: Float
-        calc = 0
+    const carInsuranceCalculate = (isDollar: boolean ,  base: number) =>{
+        let calc: Float = 0
+        let auxCalc: Float = 0
+   
         setIsDiscount(false)
         if(carAge <= 2000){
-            calc = (carBase * 30) / 100
+            calc = (base * 30) / 100
         }else if(carAge > 2000  && carAge < 2010){
-            calc = (carBase * 15) / 100
+            calc = (base * 15) / 100
         }else if(carAge > 2010   && carAge < 2016){
             calc = 0
         }else if(carAge >= 2016 ){
-            calc = ((carBase * 10) / 100) * -1
+            calc = ((base * 10) / 100) * -1
             setIsDiscount(true)
         }
-
+        auxCalc = calc
+        calc = 0
         if(isDollar == true){
-            calc = calc / dollar
-            console.log(calc)
+            calc = auxCalc / dollar
+           
         }
-
+        calc = auxCalc
         setBaseCarAge(calc)   
         return calc
     }
 
-    const TotalInsurance = (isDollar: boolean) => {
-        var calcBase = carBaseCalculate(isDollar)
-        var ageCalcInsurance = AgeInsuranceCalculate(isDollar)
-        var carCalcInsurance = carInsuranceCalculate(isDollar)
-        console.log(calcBase + ', ' + ageCalcInsurance + ','  + carCalcInsurance)
+    const TotalInsurance = async (isDollar: boolean) => {
+        var calcBase = await carBaseCalculate(isDollar)
+        var ageCalcInsurance = await AgeInsuranceCalculate(isDollar, calcBase)
+        var carCalcInsurance =  await carInsuranceCalculate(isDollar, calcBase)
 
         setTotalInsurance(calcBase + 
                           ageCalcInsurance + 
@@ -139,9 +133,9 @@ export const UtilsProvider = ({children}: any) =>{
 
     const clearConstants = () =>{
         setUser('')         
-        setPasswd('')       
-        setAge(0)           
+        setPasswd('')                 
         setCar('')          
+        setAge(0) 
         setCarAge(0)        
         setBaseUserAge(0)   
         setBaseCarAge(0)    
@@ -157,13 +151,12 @@ export const UtilsProvider = ({children}: any) =>{
         fetch("https://economia.awesomeapi.com.br/last/USD-BRL")
           .then(response => response.json())
           .then(data => {
-            console.log("Taxa de câmbio obtida com sucesso:", data?.USDBRL?.bid);
             setDollar(data?.USDBRL?.bid);
           })
           .catch(error => {
             console.error("Erro ao obter a taxa de câmbio:", error);
-          });
-      });
+          })
+      }, [])
 
     return <UtilsContext.Provider value={({user,
                                            age,
@@ -172,9 +165,15 @@ export const UtilsProvider = ({children}: any) =>{
                                            baseCarAge,
                                            totalInsurance,
                                            carBase,
+                                           carAge,
                                            isDiscount,
                                            cpf,  
+                                           setPasswd,
+                                           setUser,
                                            signIn, 
+                                           setAge,
+                                           setCpf,
+                                           setCar, setCarAge, setCarValue,
                                            forgotPasswd,
                                            toPageCarData,
                                            toLogin,

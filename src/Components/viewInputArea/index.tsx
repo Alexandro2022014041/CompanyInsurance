@@ -6,14 +6,14 @@ import { TextInputMask, TextInputMaskTypeProp, TextInputMaskOptionProp} from "re
 type PropsInputArea = {
     SecureText?: boolean
     TextPlaceHolder?: string
-    Value?: string
+    Value?: string | number
     BoardType?: KeyboardTypeOptions | undefined
     onChange?: (value: any) => void
 }
 
 export const ViewInputArea: React.FC<PropsInputArea> = (props: PropsInputArea) =>{
     return <TextInput style={Styles.container}
-                      value={props.Value}  
+                      value={props.Value?.toString()}  
                       keyboardType={props.BoardType}
                       secureTextEntry={props.SecureText}
                       placeholder={props.TextPlaceHolder}

@@ -10,15 +10,10 @@ export const Login = () =>{
 
     const {signIn,
            forgotPasswd,
+           setPasswd, setUser, passwd, user,
            clearConstants}: any = UseUtilsContext() 
 
-    const [user, setUser] = useState<string>('')
-    const [passwd, setPasswd] = useState<string>('')
 
-    const SetUser = (value: string) => setUser(value)
-    const SetPasswd = (value: string) => setPasswd(value)
-
-    const handleLogin = () => signIn(user, passwd)
     const handleForgotPasswd = () => forgotPasswd()
 
     useEffect(() => {
@@ -26,7 +21,7 @@ export const Login = () =>{
     }, [])
 
     return(
-        <LinearGradient style={Styles.container} colors={['#5374B6', '#B6535300']}> 
+        <LinearGradient style={Styles.container} colors={['#5374B6', '#f4b4b4']}> 
             <View style={Styles.boxMainText}>
                 <Text style={Styles.mainText}> SIMULACAR </Text>
             </View>
@@ -36,13 +31,13 @@ export const Login = () =>{
                         <ViewInputArea SecureText={false} 
                                     TextPlaceHolder='Usuario'
                                     Value={user}
-                                    onChange={(e) => SetUser(e)}/>
+                                    onChange={(e) => setUser(e)}/>
                     </View>
                     <View>     
                         <ViewInputArea SecureText={true} 
                                     TextPlaceHolder='Senha'
                                     Value={passwd}
-                                    onChange={(e) => SetPasswd(e)}/>          
+                                    onChange={(e) => setPasswd(e)}/>          
                     </View>
                 </View>
             </View>
@@ -50,7 +45,7 @@ export const Login = () =>{
                 <View style={Styles.boxButtonLogin}>
                     <MajorButton 
                         TextButton='Logar' 
-                        onEvent={handleLogin}
+                        onEvent={() => signIn()}
                     />                     
                 </View>
             </View>

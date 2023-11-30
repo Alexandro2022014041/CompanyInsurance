@@ -8,18 +8,11 @@ import { LineButton, MajorButton } from '../../Components/Buttons'
 
 export const PersonalData = () =>{
 
-    const {user, toPageCarData, toLogin}: any = UseUtilsContext()
-    const [age, setAge] = useState<string>('')
-    const [cpf, setCpf] = useState<string>('')
+    const {user, age, cpf, setAge, setCpf, toPageCarData, toLogin}: any = UseUtilsContext()
 
-    const SetAge = (value: string) => setAge(value)
-    const SetCpf = (value: string) => setCpf(value)
-
-    const handleCarData = () => toPageCarData(age, cpf)
-    const handleLogin = () => toLogin()
 
     return(
-        <LinearGradient style={Styles.container} colors={['#5374B6', '#B6535300']}> 
+        <LinearGradient style={Styles.container} colors={['#5374B6', '#f4b4b4']}> 
             <View style={Styles.boxMainText}>
                 <Text style={Styles.mainText}> SIMULACAR </Text>
             </View>
@@ -35,8 +28,8 @@ export const PersonalData = () =>{
                         <ViewInputArea TextPlaceHolder='Idade'
                                        SecureText={false}
                                        BoardType='numeric'
-                                       Value={age}
-                                       onChange={(e) => SetAge(e)}/>
+                                  
+                                       onChange={(e) => setAge(e)}/>
                     </View>
                     <View>
                         <Text style={Styles.textAge}>Qual o seu CPF?</Text>
@@ -44,8 +37,8 @@ export const PersonalData = () =>{
                     <View>
                         <ViewFormatInputArea TextPlaceHolder='CPF'
                                              MaskTypeInput='cpf'                                
-                                             Value={cpf}
-                                             onChange={(e) => SetCpf(e)}/>
+                                             
+                                             onChange={(e) => setCpf(e)}/>
                     </View>
                 </View>
             </View>
@@ -53,7 +46,7 @@ export const PersonalData = () =>{
                 <View style={Styles.boxButtonLogin}>
                     <MajorButton 
                         TextButton='Próximo' 
-                        onEvent={handleCarData}
+                        onEvent={toPageCarData}
                     />                     
                 </View>
             </View>
@@ -61,7 +54,7 @@ export const PersonalData = () =>{
                 <View style={Styles.boxButtonFogotPasswd}>
                     <LineButton
                         TextButton='Voltar' 
-                        onEvent={handleLogin}
+                        onEvent={toLogin}
                     /> 
                 </View>
             </View>

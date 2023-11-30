@@ -11,7 +11,7 @@ export const ForgotPasswd = () =>{
     const onHandleNavigationLogin = () => navitation.navigate('Login')
 
     return(
-        <LinearGradient style={Styles.container} colors={['#5374B6', '#B6535300']}>
+        <LinearGradient style={Styles.container} colors={['#5374B6', '#f4b4b4']}>
             <View>
                 <Text>
                     Hello World Forgot Password!
